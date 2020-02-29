@@ -12,15 +12,15 @@ On Drawing mode you can use your cursor to place **obstacles** that will block t
 
 ### Movement
 
-- W => Forward
-- A => Left
-- S => Backward
-- D => right
+- W => Move Forwards
+- A => Move Left
+- S => Move Backwards
+- D => Move Right
 
 ### Rotation
 
 - Left arrow key => Rotate Left
-- Right arrow key => Rotate right
+- Right arrow key => Rotate Right
 - Up arrow key => Move scene up
 - Down arrow key => Move scene down
 
