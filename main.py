@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 from utils import Point2D
 from obstacle import Obstacle
 from source import Source
@@ -81,6 +82,7 @@ class Main():
             self.canvas.fill(self.BACKGROUND_COLOR)
             for obstacle in self.obstacles:
                 obstacle.draw(self.ray_canvas)
+
             if not self._drawing_mode_flag:
                 self.source.draw(self.ray_canvas, self.canvas,
                                  self.obstacles, self.width, self.height, self.minuature_width, self.minuature_height)
@@ -88,16 +90,18 @@ class Main():
                 self.source.preview(self.ray_canvas, Point2D.from_tuple(
                     self.mouse_pos
                 ) / 4)
+
             if self._drawing_obstacle_flag:
                 Obstacle.preview(self.ray_canvas, self.starting_edge_of_obstacle, Point2D.from_tuple(
                     self.mouse_pos
                 ) / 4)
+
             self.canvas.blit(
                 self.ray_canvas, (0, 0))
             self.ray_canvas.fill(self.BACKGROUND_COLOR)
-            pygame.display.flip()
             self.handle_events()
             self.clock.tick(self.fps)
+            pygame.display.flip()
 
     def handle_events(self):
         if self.walk_up:
@@ -127,15 +131,15 @@ class Main():
 
         for event in pygame.event.get():
             # Quit the program if the user close the windows
-            if event.type is pygame.QUIT:
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 self._continue_flag = False
             # Or press ESCAPE
-            if event.type is pygame.KEYDOWN:
-                if event.key is pygame.K_ESCAPE:
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     self._continue_flag = False
-                if event.key is pygame.K_F11:
+                elif event.key == pygame.K_F11:
                     if (self.fullscreen is False):
                         self.fullscreen = True
                         pygame.display.quit()
@@ -146,70 +150,70 @@ class Main():
                         self.canvas = pygame.display.set_mode((self.width, self.height),
                                                               pygame.RESIZABLE)
 
-                if event.key is pygame.K_q:
+                elif event.key == pygame.K_q:
                     self._drawing_mode_flag = not self._drawing_mode_flag
 
-                if event.key is pygame.K_r:
+                elif event.key == pygame.K_r:
                     self.restart()
 
-                if event.key is pygame.K_w:
+                elif event.key == pygame.K_w:
                     self.walk_up = True
 
-                if event.key is pygame.K_a:
+                elif event.key == pygame.K_a:
                     self.walk_left = True
 
-                if event.key is pygame.K_s:
+                elif event.key == pygame.K_s:
                     self.walk_down = True
 
-                if event.key is pygame.K_d:
+                elif event.key == pygame.K_d:
                     self.walk_right = True
 
-                if event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT:
                     self.rotate_left = True
                 elif event.key == pygame.K_RIGHT:
                     self.rotate_right = True
 
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     self.rotate_up = True
                 elif event.key == pygame.K_DOWN:
                     self.rotate_down = True
 
-            if event.type is pygame.KEYUP:
-                if event.key is pygame.K_w:
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
                     self.walk_up = False
 
-                if event.key is pygame.K_a:
+                elif event.key == pygame.K_a:
                     self.walk_left = False
 
-                if event.key is pygame.K_s:
+                elif event.key == pygame.K_s:
                     self.walk_down = False
 
-                if event.key is pygame.K_d:
+                elif event.key == pygame.K_d:
                     self.walk_right = False
 
-                if event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT:
                     self.rotate_left = False
                 elif event.key == pygame.K_RIGHT:
                     self.rotate_right = False
 
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     self.rotate_up = False
                 elif event.key == pygame.K_DOWN:
                     self.rotate_down = False
 
-            if event.type is pygame.VIDEORESIZE:
+            elif event.type == pygame.VIDEORESIZE:
                 self.width, self.height = event.size
                 if not self.fullscreen:
                     self.canvas = pygame.display.set_mode((self.width, self.height),
                                                           pygame.RESIZABLE)
-            if event.type is pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.mouse_pos = event.pos
                 if self._drawing_mode_flag:
                     self._drawing_obstacle_flag = True
                     self.starting_edge_of_obstacle = Point2D.from_tuple(
                         self.mouse_pos) / 4
 
-            if event.type is pygame.MOUSEBUTTONUP:
+            elif event.type == pygame.MOUSEBUTTONUP:
                 self.mouse_pos = event.pos
                 if self._drawing_mode_flag:
                     self._drawing_obstacle_flag = False
@@ -217,7 +221,7 @@ class Main():
                         self.mouse_pos
                     ) / 4))
 
-            if event.type is pygame.MOUSEMOTION:
+            elif event.type == pygame.MOUSEMOTION:
                 self.mouse_pos = event.pos
 
 
